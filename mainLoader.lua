@@ -14,12 +14,29 @@ local MainTab = Window:MakeTab({
   Icon = "rbxassetid://4483345998",
   PremiumOnly = false
 })
+
+--Button
+MainTab:AddButton({
+	Name = "Click Tp Tool",
+	Callback = function()
+      		mouse = game.Players.LocalPlayer:GetMouse()
+tool = Instance.new("Tool")
+tool.RequiresHandle = false
+tool.Name = "Equip to Click TP"
+tool.Activated:connect(function()
+local pos = mouse.Hit+Vector3.new(0,2.5,0)
+pos = CFrame.new(pos.X,pos.Y,pos.Z)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pos
+end)
+tool.Parent = game.Players.LocalPlayer.Backpack
+  	end    
+})
   
---Toggles  
+--Slider
 MainTab:AddSlider({
   Name = "SpeedHack",
   Min = 0,
-  Max = 200,
+  Max = 300,
   Default = 16,
   Color = Color3.fromRGB(255,255,255),
   Increment = 1,
@@ -51,6 +68,27 @@ end)
 Hum.WalkSpeed = _G.HackedWalkSpeed
 end)
   end    
+})
+
+--Slider
+MainTab:AddSlider({
+	Name = "Jump Power",
+	Min = 0,
+	Max = 300,
+	Default = 5,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "",
+	Callback = function(c)
+
+local jump = c
+ 
+spawn(function(c)
+while wait() do
+game.Players.LocalPlayer.Character.Humanoid.JumpPower = jump
+end
+end)
+	end    
 })
   
   
